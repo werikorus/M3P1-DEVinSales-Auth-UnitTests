@@ -1,6 +1,4 @@
-﻿using DevInSales.Extensions;
-
-namespace DevInSales.Models
+﻿namespace DevInSales.Models
 {
     public class Category
     {
@@ -16,13 +14,18 @@ namespace DevInSales.Models
         public Category(string name, string slug)
         {
             Name = name;
-            Slug = name.ToSlug();
+            Slug = slug;
         }
         public Category(int id, string name, string slug)
         {
             Id = id;
             Name = name;
             Slug = slug;
+        }
+
+        public static string GetCategorySlug(string name)
+        {
+            return name.ToLower().Replace(" ", "-").Normalize();
         }
     }
 }
