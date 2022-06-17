@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using DevInSales.Enums;
+using Microsoft.OpenApi.Extensions;
 
 namespace DevInSales.Models;
 
@@ -21,6 +22,7 @@ public class User
     public Permitions Permition { get; set; }
     [Column("role")]
     public string Role { get; set; }
+    public string DescricaoPermissao => Permition.GetDisplayName();
 
     public Profile Profile { get; set; }
     public int ProfileId { get; set; }

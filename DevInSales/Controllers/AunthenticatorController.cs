@@ -63,15 +63,20 @@ namespace DevInSales.Controllers
                     throw new SecurityTokenException("Invalid refresh token");
 
                 var newToken = TokenService.GenerateBearerToken(main.Claims);
+                var newRefreshToken = TokenService.GenerateRefreshToken();
+                TokenService.DeleteRefreshToken(username, refreshToken);
+                TokenService.SaveRefreshToken(username, newRefreshToken);
 
-
+                return new ObjectResult(new
+                {
+                    token = newToken,
+                    refreshToken = newRefreshToken
+                });
             }
             catch
             {
                 return StatusCode(500);
-            }
-
-            
+            }           
         }
     }
 }

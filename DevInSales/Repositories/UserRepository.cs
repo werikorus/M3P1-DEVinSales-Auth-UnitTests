@@ -21,5 +21,11 @@ namespace DevInSales.Repositories
 
             return user;
         }
+
+
+        public static List<User> GetAllUsers()
+        {
+            return _context.User.ToList();
+        }
     }
 }
