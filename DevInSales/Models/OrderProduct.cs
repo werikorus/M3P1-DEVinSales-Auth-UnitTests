@@ -13,5 +13,4 @@ public class OrderProduct
 
     public ICollection<Product> Products { get; set; }
 
-
 }

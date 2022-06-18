@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DevInSales.Migrations
 {
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

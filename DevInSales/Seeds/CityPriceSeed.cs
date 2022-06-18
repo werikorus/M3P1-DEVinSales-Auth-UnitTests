@@ -1,7 +1,9 @@
 ﻿using DevInSales.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.Seeds
 {
+    [ExcludeFromCodeCoverage]
     public static class CityPriceSeed
     {
         public static List<CityPrice> Seed { get; set; } = new List<CityPrice>()

@@ -3,7 +3,6 @@ using DevInSales.Models;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using DevInSales;
 using System.Security.Cryptography;
 
 namespace DevInSales.Services
@@ -11,25 +10,15 @@ namespace DevInSales.Services
     public class TokenService
     {
 
-        public static string GenerateBearerToken(User user)
+        public static string GenerateToken(User user)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]{
-                    new Claim("UserId", user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Name),
-                    new Claim(ClaimTypes.Role, user.Profile.Name)
-                }),
+            var claims = new Claim[]
+             {
+                new Claim(ClaimTypes.Name, user.UserName.ToString()),
+                new Claim(ClaimTypes.Role, user.Permition.ToString())
+             };
 
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-
-            };
-
-            var tokenGenerated = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(tokenGenerated);
+            return GenerateBearerToken(claims);
         }
 
         public static string GenerateBearerToken(IEnumerable<Claim> claims)
@@ -43,7 +32,6 @@ namespace DevInSales.Services
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -59,7 +47,7 @@ namespace DevInSales.Services
             return Convert.ToBase64String(randomNumber);
         }
 
-        public static ClaimsPrincipal GetMainFromExpiredToken(string token)
+        public static ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -70,12 +58,24 @@ namespace DevInSales.Services
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var main = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
 
-            if (securityToken is not JwtSecurityToken jwtSecurityToken)
-                throw new SecurityTokenException("Invalid token");
+            try
+            {
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
 
-            return main;
+                if (securityToken is not JwtSecurityToken jwtSecurityToken)
+                    throw new SecurityTokenException("Invalid token");
+
+                return principal;
+            }
+            catch(SecurityTokenException e)
+            {
+                throw new(e.ToString());
+            }
+            catch (Exception e)
+            {               
+                throw new(e.ToString()); 
+            }
         }
 
         private static List<Tuple<string, string>> _refreshsTokens = new List<Tuple<string, string>>();
@@ -86,10 +86,14 @@ namespace DevInSales.Services
         public static string GetRefreshToken(string username)
             => _refreshsTokens.FirstOrDefault(x => x.Item1 == username).Item2;
 
-        public static void DeleteRefreshToken(string username, string refreshToken)
+        public static bool DeleteRefreshToken(string username, string refreshToken)
         {
             var item = _refreshsTokens.FirstOrDefault(x => x.Item1 == username && x.Item2 == refreshToken);
             _refreshsTokens.Remove(item);
+
+            var verify = _refreshsTokens.FirstOrDefault(x => x.Item1 == username && x.Item2 == refreshToken);
+
+            return verify==null;
         }
     }
 }

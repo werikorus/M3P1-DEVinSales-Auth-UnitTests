@@ -4,6 +4,7 @@
 
 namespace DevInSales.Migrations
 {
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class InclusaoEmpresaPadraoSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

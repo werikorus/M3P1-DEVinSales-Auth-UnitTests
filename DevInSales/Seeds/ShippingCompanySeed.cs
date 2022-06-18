@@ -1,7 +1,9 @@
 ﻿using DevInSales.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.Seeds
 {
+    [ExcludeFromCodeCoverage]
     public static class ShippingCompanySeed
     {
         public static List<ShippingCompany> Seed { get; set; } = new List<ShippingCompany>()

@@ -1,5 +1,7 @@
 ﻿using DevInSales.Models;
+using System.Diagnostics.CodeAnalysis;
 
+[ExcludeFromCodeCoverage]
 public class ProductSeed
 {
     public static List<Product> Seed { get; set; } = new List<Product>() { new Product()

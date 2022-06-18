@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DevInSales.Enums;
 using DevInSales.Repositories;
+using DevInSales.Context;
 
 namespace DevInSales.Controllers
 {
@@ -12,15 +13,15 @@ namespace DevInSales.Controllers
     [Authorize]
     public class AccessController : ControllerBase
     {
+        private readonly UserRepository _userRepository;
 
         [Route("listar")]
         [Authorize]
         [HttpGet]
         public IActionResult List()
             => User.IsInRole(Permitions.Funcionario.GetDisplayName())
-            ? Ok(UserRepository.GetAllUsers().Select(x => new { x.UserName, x.DescricaoPermissao }))
-            : Ok(UserRepository.GetAllUsers());
-
+            ? Ok(_userRepository.GetAllUsers().Select(x => new { x.UserName, x.DescricaoPermissao }))
+            : Ok(_userRepository.GetAllUsers());
 
         [HttpGet]
         [Route("publico")]
@@ -40,7 +41,7 @@ namespace DevInSales.Controllers
 
         [HttpGet]
         [Route("funcionario")]
-        [Authorize(Roles = "gerente,funcionario")]
+        [Authorize(Roles = "gerente,funcionario")]       
         public IActionResult AccessEmployee()
         {
             try

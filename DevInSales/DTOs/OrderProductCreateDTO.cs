@@ -17,7 +17,7 @@ namespace DevInSales.DTOs
         [Required(ErrorMessage = "O campo Order_Id do OrderProduct precisa ser informado.")]
         public int Order_Id { get; set; }
 
-        public static OrderProduct ConverterParaEntidade(OrderProductCreateDTO orderProduct,Product product, Order order)
+        public static OrderProduct ConverterParaEntidade(OrderProductCreateDTO orderProduct, ICollection<Product> product, ICollection<Order> order)
         {
             if (orderProduct == null) return null;
 
@@ -25,8 +25,8 @@ namespace DevInSales.DTOs
             {
                 Unit_Price = orderProduct.Unit_Price,
                 Amount = orderProduct.Amount,
-                Order = order,
-                Product = product
+                Orders = order,
+                Products = product
             };
         }
 

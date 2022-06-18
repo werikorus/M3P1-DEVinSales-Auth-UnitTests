@@ -138,7 +138,7 @@ namespace DevInSales.Controllers
                     return StatusCode(400);
                 }
 
-                var delivery = new Delivery { Address = addressDB, Delivery_Date = null, Delivery_Forecast = delivery_forecast, Order = orderDB, Status = Enums.StatusEnum.PedidoEmTransporte };
+                var delivery = new Delivery { Address = addressDB, Delivery_Date = DateTime.Now, Delivery_Forecast = delivery_forecast, Order = orderDB, Status = Enums.StatusEnum.PedidoEmTransporte };
                 _context.Delivery.Add(delivery);
                 await _context.SaveChangesAsync();
 

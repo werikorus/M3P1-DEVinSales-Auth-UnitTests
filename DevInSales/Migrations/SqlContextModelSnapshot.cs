@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevInSales.Migrations
 {
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [DbContext(typeof(SqlContext))]
     partial class SqlContextModelSnapshot : ModelSnapshot
     {

@@ -1,7 +1,9 @@
 ﻿using DevInSales.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.Seeds
 {
+    [ExcludeFromCodeCoverage]
     public class UserSeed
     {
         public static List<User> Seed { get; set; } = new List<User>() { new User()

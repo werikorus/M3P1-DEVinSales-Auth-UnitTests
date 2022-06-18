@@ -22,10 +22,10 @@ namespace DevInSales.Repositories
             return user;
         }
 
-
-        public static List<User> GetAllUsers()
+        public List<User> GetAllUsers()
         {
-            return _context.User.ToList();
+            var users = _context.User.ToList();
+            return users;
         }
     }
 }

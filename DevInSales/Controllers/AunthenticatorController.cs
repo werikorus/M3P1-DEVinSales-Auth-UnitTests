@@ -31,7 +31,7 @@ namespace DevInSales.Controllers
 
                 if (user == null) return NotFound();
 
-                var token = TokenService.GenerateBearerToken(user);
+                var token = TokenService.GenerateToken(user);
                 var newRefreshToken = TokenService.GenerateRefreshToken();
                 TokenService.SaveRefreshToken(user.UserName, newRefreshToken);
 
@@ -55,7 +55,7 @@ namespace DevInSales.Controllers
         {
             try
             {
-                var main = TokenService.GetMainFromExpiredToken(token);
+                var main = TokenService.GetPrincipalFromExpiredToken(token);
                 var username = main.Identity.Name;
                 var savedRefreshToken = TokenService.GetRefreshToken(username);
 
