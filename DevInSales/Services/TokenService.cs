@@ -58,24 +58,12 @@ namespace DevInSales.Services
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
 
-            try
-            {
-                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-                if (securityToken is not JwtSecurityToken jwtSecurityToken)
-                    throw new SecurityTokenException("Invalid token");
+            if (securityToken is not JwtSecurityToken jwtSecurityToken)
+                throw new SecurityTokenException("Invalid token");
 
                 return principal;
-            }
-            catch(SecurityTokenException e)
-            {
-                throw new(e.ToString());
-            }
-            catch (Exception e)
-            {               
-                throw new(e.ToString()); 
-            }
         }
 
         private static List<Tuple<string, string>> _refreshsTokens = new List<Tuple<string, string>>();

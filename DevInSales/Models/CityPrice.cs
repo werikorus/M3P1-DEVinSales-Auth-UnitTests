@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.Models
-{
+{    
+    [ExcludeFromCodeCoverage]
     public class CityPrice
     {
         [Key]

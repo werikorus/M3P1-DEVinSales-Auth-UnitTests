@@ -34282,8 +34282,22 @@ namespace DevInSales.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("password");
 
+                    b.Property<int>("Permition")
+                        .HasColumnType("int")
+                        .HasColumnName("permition");
+
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("role");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UserName");
 
                     b.HasKey("Id");
 
@@ -34299,7 +34313,10 @@ namespace DevInSales.Migrations
                             Email = "romeu@lenda.com",
                             Name = "Romeu A Lenda",
                             Password = "romeu123@",
-                            ProfileId = 1
+                            Permition = 0,
+                            ProfileId = 1,
+                            Role = "Administrador",
+                            UserName = "romeu"
                         },
                         new
                         {
@@ -34308,7 +34325,10 @@ namespace DevInSales.Migrations
                             Email = "gustavo_levi_ferreira@gmail.com",
                             Name = "Gustavo Levi Ferreira",
                             Password = "!romeu321",
-                            ProfileId = 1
+                            Permition = 0,
+                            ProfileId = 1,
+                            Role = "Funcionario",
+                            UserName = "gustavo"
                         },
                         new
                         {
@@ -34317,7 +34337,10 @@ namespace DevInSales.Migrations
                             Email = "lemosluiz@gmail.com",
                             Name = "Henrique Luiz Lemos",
                             Password = "lemos$2022",
-                            ProfileId = 1
+                            Permition = 0,
+                            ProfileId = 1,
+                            Role = "Gerente",
+                            UserName = "henrique"
                         },
                         new
                         {
@@ -34326,7 +34349,10 @@ namespace DevInSales.Migrations
                             Email = "tomas.paulo.aragao@hotmail.com",
                             Name = "Tomás Paulo Aragão",
                             Password = "$tpa1996",
-                            ProfileId = 1
+                            Permition = 0,
+                            ProfileId = 1,
+                            Role = "Funcionario",
+                            UserName = "tomaspaulo"
                         });
                 });
 
