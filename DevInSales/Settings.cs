@@ -1,6 +1,8 @@
-﻿namespace DevInSales
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DevInSales
 {
-    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     public static class Settings
     {
         public static readonly string Secret = "mySecretKeyGenerateByMySelf";

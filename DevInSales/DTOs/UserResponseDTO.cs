@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.DTOs
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// DTO que representa as informações de um usuário
     /// </summary>

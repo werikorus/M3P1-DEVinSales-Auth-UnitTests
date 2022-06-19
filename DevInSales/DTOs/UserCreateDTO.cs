@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using DevInSales.Models;
 
 namespace DevInSales.DTOs
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// DTO para criar um novo usuário
     /// </summary>
