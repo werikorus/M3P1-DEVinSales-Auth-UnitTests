@@ -2,9 +2,11 @@
 using System.Linq;
 using DevInSales.Models;
 using DevInSales.Context;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class UserRepository
     {
         private readonly SqlContext _context;

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.3568" branch-rate="0.1612" version="1.9" timestamp="1655687385" lines-covered="187" lines-valid="524" branches-covered="20" branches-valid="124">
+<coverage line-rate="0.36590000000000006" branch-rate="0.1612" version="1.9" timestamp="1655687755" lines-covered="187" lines-valid="511" branches-covered="20" branches-valid="124">
   <sources>
     <source>C:\Projetos\C#\M3P1-DEVinSales-Auth-UnitTests\DevInSales\</source>
   </sources>
   <packages>
-    <package name="DevInSales" line-rate="0.3568" branch-rate="0.1612" complexity="154">
+    <package name="DevInSales" line-rate="0.36590000000000006" branch-rate="0.1612" complexity="151">
       <classes>
         <class name="DevInSales.Services.TokenService" filename="Services\TokenService.cs" line-rate="0.9795" branch-rate="0.6666" complexity="12">
           <methods>
@@ -164,50 +164,6 @@
             <line number="84" hits="2" branch="False" />
             <line number="85" hits="2" branch="False" />
             <line number="69" hits="1" branch="False" />
-          </lines>
-        </class>
-        <class name="DevInSales.Repositories.UserRepository" filename="Repositories\UserRepository.cs" line-rate="0" branch-rate="1" complexity="3">
-          <methods>
-            <method name="VerifyUser" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="22" hits="0" branch="False" />
-                <line number="23" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="GetAllUsers" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="29" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(DevInSales.Context.SqlContext)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="12" hits="0" branch="False" />
-                <line number="13" hits="0" branch="False" />
-                <line number="14" hits="0" branch="False" />
-                <line number="15" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="22" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="29" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-            <line number="13" hits="0" branch="False" />
-            <line number="14" hits="0" branch="False" />
-            <line number="15" hits="0" branch="False" />
           </lines>
         </class>
         <class name="DevInSales.Controllers.AccessController" filename="Controllers\AccessController.cs" line-rate="0" branch-rate="0" complexity="2">
