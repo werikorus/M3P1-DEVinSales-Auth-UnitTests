@@ -13,6 +13,11 @@ namespace DevInSales.Controllers
     [Authorize]
     public class AccessController : ControllerBase
     {
+        private const string PublicAccessMsg = "Acesso público de todos os colaboradores";
+        private const string ManagersAccessMsg = "Acesso exclusivo à gerentes";
+        private const string AdministratorsAccessMsg = "Acesso exclusivo à administradores";
+        private const string EmployeesAccessMsg = "Bem-vindo à página de funcionários!";
+
         private readonly UserRepository _userRepository;
 
         [Route("listar")]
@@ -20,69 +25,39 @@ namespace DevInSales.Controllers
         [HttpGet]
         public IActionResult List()
             => User.IsInRole(Permitions.Funcionario.GetDisplayName())
-            ? Ok(_userRepository.GetAllUsers().Select(x => new { x.UserName, x.DescricaoPermissao }))
+            ? Ok(_userRepository.GetAllUsers().Select(x => new { x.UserName, x.Role }))
             : Ok(_userRepository.GetAllUsers());
 
         [HttpGet]
         [Route("publico")]
         [AllowAnonymous]
-        public IActionResult AccessPublic()
+        public async Task<ActionResult> AccessPublic()
         {
-            try
-            {
-                return Ok("Acesso público de todos os colaboradores");
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-            
+            return await Task.FromResult(Ok(PublicAccessMsg));
         }
 
         [HttpGet]
         [Route("funcionario")]
-        [Authorize(Roles = "gerente,funcionario")]       
-        public IActionResult AccessEmployee()
+        [Authorize(Roles = "gerente,funcionario")]
+        public async Task<ActionResult> AccessEmployee()
         {
-            try
-            {
-                return Ok($"Bem-vindo {User.Identity.Name}, à página de funcionários");
-            }
-            catch
-            {
-                return StatusCode(500);
-            }           
+            return await Task.FromResult(Ok(EmployeesAccessMsg));
         }
 
         [HttpGet]
         [Route("gerente")]
         [Authorize(Roles = "gerentes")]
-        public IActionResult AccessManager()
+        public async Task<ActionResult> AccessManager()
         {
-            try
-            {
-                return Ok("Acesso exclusivo à gerentes");
-            }
-            catch
-            {
-                return StatusCode(500);
-            }            
+            return await Task.FromResult(Ok(ManagersAccessMsg));
         }
 
         [HttpGet]
         [Route("administrador")]
         [Authorize(Roles = "gerente,funcionario,administrador")]
-        public IActionResult AccessAdministrator()
+        public async Task<ActionResult> AccessAdministrator()
         {
-            try
-            {
-                return Ok("Acesso exclusivo à administradores");
-            }
-            catch
-            {
-                return StatusCode(500);
-            }            
+            return await Task.FromResult(Ok(AdministratorsAccessMsg));
         }
-
     }
 }

@@ -5,11 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevInSales.Controllers
 {
     [Route("api/user")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly SqlContext _context;
@@ -35,13 +38,14 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<IEnumerable<UserResponseDTO>>> Get(
             [FromQuery] string? name, [FromQuery] string? birth_date_min, [FromQuery] string? birth_date_max)
         {
             var consulta = _context.User as IQueryable<User>;
             consulta = consulta.Where(u => u.Profile.Id == 1);
 
-            if (!string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrWhiteSpace(name)) 
             {
                 consulta = consulta.Where(u => u.Name.Contains(name));
             }
@@ -84,6 +88,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
+        [Authorize(Roles = "gerente,administrador")]
         public async Task<ActionResult<User>> Create([FromBody] UserCreateDTO requisicao)
         {
             if (!isDataNascimentoValida(requisicao.BirthDate))
@@ -110,6 +115,7 @@ namespace DevInSales.Controllers
             return CreatedAtAction("Create", new { id = novoUsuario.Id });
         }
 
+        [ExcludeFromCodeCoverage]
         private bool isDataNascimentoValida(string data)
         {
             DateTime dataNascimento = DateTime.ParseExact(data, "dd/MM/yyyy", new CultureInfo("pt-BR"));

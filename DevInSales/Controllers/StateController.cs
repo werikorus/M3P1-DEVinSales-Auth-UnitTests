@@ -9,11 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using DevInSales.Context;
 using DevInSales.Models;
 using DevInSales.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevInSales.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StateController : ControllerBase
     {
         private readonly SqlContext _context;
@@ -27,6 +29,8 @@ namespace DevInSales.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
+
         public async Task<ActionResult<IEnumerable<State>>> GetState(string name)
         {
             List<State> retorno = new List<State>();
@@ -41,6 +45,7 @@ namespace DevInSales.Controllers
 
         // GET: api/State/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<State>> GetState(int id)
         {
             var state = await _context.State.FindAsync(id);
@@ -55,6 +60,7 @@ namespace DevInSales.Controllers
 
         [HttpGet("{State_Id}/city/{City_Id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<CityStateDTO>> GetByIdStateCity(int State_Id, int City_Id)
         {
             //return _sqlContext.Clientes.Include(x => x.Endereco).Select(x => (ClienteDTO)x).ToList();
@@ -83,6 +89,7 @@ namespace DevInSales.Controllers
         // PUT: api/State/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "gerente,administrador")]
         public async Task<IActionResult> PutState(int id, State state)
         {
             if (id != state.Id)
@@ -114,6 +121,7 @@ namespace DevInSales.Controllers
         // POST: api/State
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "gerente,administrador")]
         public async Task<ActionResult<State>> PostState(State state)
         {
             _context.State.Add(state);
@@ -124,6 +132,7 @@ namespace DevInSales.Controllers
 
         // DELETE: api/State/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<IActionResult> DeleteState(int id)
         {
             var state = await _context.State.FindAsync(id);

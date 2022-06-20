@@ -1,5 +1,6 @@
 ﻿using DevInSales.Context;
 using DevInSales.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace DevInSales.Controllers
 {
     [Route("api/order")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly SqlContext _context;
@@ -28,6 +30,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<ICollection<Order>>> GetBuyId(int user_id)
         {
             try

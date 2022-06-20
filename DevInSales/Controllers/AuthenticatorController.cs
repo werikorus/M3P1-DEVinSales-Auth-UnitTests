@@ -11,25 +11,25 @@ namespace DevInSales.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AunthenticatorController : ControllerBase
+    public class AuthenticatorController : ControllerBase
     {
         private readonly SqlContext _context;
 
-        public AunthenticatorController(SqlContext context)
+        public AuthenticatorController(SqlContext context)
         {
             _context = context;
         }
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public async Task<ActionResult> Login([FromBody] LoginDto dto)
         {
             try
             {
                 var user = _context.User.Where(x => x.UserName.ToLower() == dto.Username.ToLower()
                     && x.Password == dto.Password).FirstOrDefault();
 
-                if (user == null) return NotFound();
+                if (user == null) return NotFound() ;
 
                 var token = TokenService.GenerateToken(user);
                 var newRefreshToken = TokenService.GenerateRefreshToken();

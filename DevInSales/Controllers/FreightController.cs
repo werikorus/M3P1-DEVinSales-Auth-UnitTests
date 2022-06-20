@@ -1,6 +1,7 @@
 ﻿using DevInSales.Context;
 using DevInSales.DTOs;
 using DevInSales.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace DevInSales.Controllers
 {
     [Route("api/freight")]
     [ApiController]
+    [Authorize]
     public class FreightController : ControllerBase
     {
         private readonly SqlContext _context;
@@ -23,6 +25,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("{cityId:int}")]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public ActionResult<IList<FreightResult>> GetFreight(int cityId)
         {
             try
@@ -56,6 +59,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("company/name")]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<IEnumerable<ShippingCompany>>> GetCompanyByName(string? name)
         {
             try
@@ -83,6 +87,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<ShippingCompany>> GetCompanyById(int id)
         {
             try
@@ -104,6 +109,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<List<StatePrice>>> GetStateCompanyById(int stateId, int companyId)
         {
             try
@@ -127,6 +133,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "funcionario,gerente,administrador")]
         public async Task<ActionResult<List<CityPrice>>> GetCityCompanyById(int cityId, int companyId)
         {
             try
@@ -148,6 +155,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("state/company")]
+        [Authorize(Roles = "gerente,administrador")]
         public async Task<ActionResult<List<StatePriceDTO>>> PostStateCompany(IEnumerable<StatePriceDTO> statePrices)
         {
             try
@@ -196,6 +204,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "gerente,administrador")]
         public async Task<ActionResult<List<CityPriceDTO>>> PostCityCompany(IEnumerable<CityPriceDTO> cityPrices)
         {
             try
@@ -245,6 +254,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> DeleteCityPrice(int cityPriceId)
         {
             try
@@ -271,6 +281,7 @@ namespace DevInSales.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> DeleteStatePrice(int statePriceId)
         {
             try
